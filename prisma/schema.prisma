@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Removed Enums in favor of dynamic Platform model
+enum PaymentMethod {
+  PIX
+  CREDIT
+  DEBIT
+  CASH
+  OTHER
+}
+
+enum OrderStatus {
+  NEW
+  CONFIRMED
+  PREPARING
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELED
+}
+
+model Tenant {
+  id        String   @id @default(uuid())
+  name      String
+  plan      String   @default("FREE") // FREE, PRO, ENTERPRISE
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products      Product[]
+  orders        Order[]
+  platforms     Platform[]
+  suppliers     Supplier[]
+  expenses      Expense[]
+  dailyCloses   DailyClose[]
+}
+
+model Platform {
+  id              String   @id @default(uuid())
+  tenantId        String
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
+  
+  name            String
+  type            String   // 'DELIVERY', 'MANUAL', 'MARKETPLACE'
+  defaultFeePercent Decimal @db.Decimal(5, 4) // e.g. 0.2300
+  active          Boolean  @default(true)
+  
+  orders          Order[]
+
+  @@unique([tenantId, name])
+}
+
+model Supplier {
+  id        String   @id @default(uuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  
+  name      String
+  contact   String?
+  notes     String?
+  active    Boolean  @default(true)
+}
+
+model Product {
+  id            String      @id @default(uuid())
+  tenantId      String
+  tenant        Tenant      @relation(fields: [tenantId], references: [id])
+  
+  name          String
+  salePrice     Decimal     @db.Decimal(10, 2)
+  estimatedCost Decimal     @db.Decimal(10, 2)
+  active        Boolean     @default(true)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  orderItems    OrderItem[]
+}
+
+model Order {
+  id              String         @id @default(uuid())
+  tenantId        String
+  tenant          Tenant         @relation(fields: [tenantId], references: [id])
+  
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  
+  platformId      String
+  platform        Platform       @relation(fields: [platformId], references: [id])
+  
+  channel         String?        // Legacy/Extra info
+  customerName    String?
+  
+  grossTotal      Decimal        @db.Decimal(10, 2)
+  totalCost       Decimal        @db.Decimal(10, 2)
+  platformFeeValue Decimal       @db.Decimal(10, 2)
+  netProfit       Decimal        @db.Decimal(10, 2)
+  marginPct       Decimal        @db.Decimal(10, 2)
+
+  paymentMethod   PaymentMethod
+  status          OrderStatus    @default(NEW)
+  notes           String?
+  
+  items           OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  
+  quantity  Int
+  unitPrice Decimal  @db.Decimal(10, 2) // Snapshot
+  unitCost  Decimal  @db.Decimal(10, 2) // Snapshot
+}
+
+model DailyClose {
+  id          String   @id @default(uuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  
+  date        DateTime @db.Date // YYYY-MM-DD
+  grossIncome Decimal  @db.Decimal(10, 2)
+  feesTotal   Decimal  @db.Decimal(10, 2)
+  costsTotal  Decimal  @db.Decimal(10, 2)
+  netProfit   Decimal  @db.Decimal(10, 2)
+  ordersCount Int
+  closedAt    DateTime @default(now())
+
+  @@unique([tenantId, date])
+}
+
+model Expense {
+  id          String   @id @default(uuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  
+  description String
+  amount      Decimal  @db.Decimal(10, 2)
+  date        DateTime @default(now())
+}
+
