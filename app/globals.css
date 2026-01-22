@@ -2,50 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Galáxia Gourmet - Identidade Visual */
+/* Cores: Roxo/Lilás (#8B7BA3), Rosa (#D4A5B9), Dourado (#F5C551) */
+
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 220 20% 10%;
+    /* Background suave com tom lilás */
+    --background: 270 20% 98%;
+    --foreground: 270 30% 15%;
+    
+    /* Cards brancos com borda suave */
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
+    --card-foreground: 270 30% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
-    --primary: 265 89% 60%;
+    --popover-foreground: 270 30% 15%;
+    
+    /* Primary: Lilás da marca */
+    --primary: 270 25% 55%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 15% 92%;
-    --secondary-foreground: 220 20% 20%;
-    --muted: 220 15% 92%;
-    --muted-foreground: 220 10% 45%;
-    --accent: 265 89% 95%;
-    --accent-foreground: 265 89% 40%;
+    
+    /* Secondary: Rosa suave */
+    --secondary: 330 35% 92%;
+    --secondary-foreground: 330 35% 35%;
+    
+    /* Muted: Tons neutros com toque lilás */
+    --muted: 270 15% 94%;
+    --muted-foreground: 270 10% 45%;
+    
+    /* Accent: Rosa da marca */
+    --accent: 330 40% 75%;
+    --accent-foreground: 330 50% 25%;
+    
+    /* Destructive */
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 265 89% 60%;
+    
+    /* Bordas e inputs */
+    --border: 270 20% 88%;
+    --input: 270 20% 88%;
+    --ring: 270 25% 55%;
+    
     --radius: 0.75rem;
+    
+    /* Cores extras da marca */
+    --galaxia-lilac: 270 25% 55%;
+    --galaxia-rose: 330 40% 75%;
+    --galaxia-gold: 43 90% 64%;
+    --galaxia-sun: 43 95% 60%;
+    --galaxia-moon: 330 30% 70%;
   }
 
   .dark {
-    --background: 220 20% 8%;
-    --foreground: 220 10% 95%;
-    --card: 220 20% 12%;
-    --card-foreground: 220 10% 95%;
-    --popover: 220 20% 12%;
-    --popover-foreground: 220 10% 95%;
-    --primary: 265 89% 60%;
+    --background: 270 25% 8%;
+    --foreground: 270 10% 95%;
+    --card: 270 25% 12%;
+    --card-foreground: 270 10% 95%;
+    --popover: 270 25% 12%;
+    --popover-foreground: 270 10% 95%;
+    --primary: 270 35% 65%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 15% 18%;
-    --secondary-foreground: 220 10% 90%;
-    --muted: 220 15% 18%;
-    --muted-foreground: 220 10% 55%;
-    --accent: 265 89% 20%;
-    --accent-foreground: 265 89% 80%;
+    --secondary: 330 25% 18%;
+    --secondary-foreground: 330 20% 85%;
+    --muted: 270 20% 18%;
+    --muted-foreground: 270 10% 55%;
+    --accent: 330 35% 25%;
+    --accent-foreground: 330 40% 85%;
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 15% 22%;
-    --input: 220 15% 22%;
-    --ring: 265 89% 60%;
+    --border: 270 20% 22%;
+    --input: 270 20% 22%;
+    --ring: 270 35% 65%;
   }
 }
 
@@ -59,7 +85,7 @@
   }
 }
 
-/* Animações suaves */
+/* Animações */
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out;
@@ -71,6 +97,18 @@
   
   .animate-pulse-soft {
     animation: pulseSoft 2s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  .animate-sparkle {
+    animation: sparkle 1.5s ease-in-out infinite;
   }
 }
 
@@ -89,9 +127,36 @@
   50% { opacity: 0.7; }
 }
 
-/* Gradientes */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(139, 123, 163, 0.3); }
+  50% { box-shadow: 0 0 30px rgba(139, 123, 163, 0.5); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+/* Gradientes da marca Galáxia Gourmet */
 .gradient-primary {
-  background: linear-gradient(135deg, hsl(265 89% 60%) 0%, hsl(280 90% 65%) 100%);
+  background: linear-gradient(135deg, #8B7BA3 0%, #C4A5B9 50%, #D4A5B9 100%);
+}
+
+.gradient-galaxia {
+  background: linear-gradient(135deg, #8B7BA3 0%, #C4A5B9 35%, #D4A5B9 65%, #F5C551 100%);
+}
+
+.gradient-sun-moon {
+  background: linear-gradient(135deg, #F5C551 0%, #D4A5B9 100%);
+}
+
+.gradient-lilac-rose {
+  background: linear-gradient(135deg, #8B7BA3 0%, #D4A5B9 100%);
 }
 
 .gradient-success {
@@ -99,9 +164,136 @@
 }
 
 .gradient-warning {
-  background: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(25 95% 53%) 100%);
+  background: linear-gradient(135deg, #F5C551 0%, #E5A84B 100%);
 }
 
 .gradient-danger {
   background: linear-gradient(135deg, hsl(0 84% 60%) 0%, hsl(350 89% 55%) 100%);
+}
+
+/* Texto gradiente da marca */
+.text-gradient-galaxia {
+  background: linear-gradient(135deg, #8B7BA3 0%, #D4A5B9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Background decorativo */
+.bg-galaxia-pattern {
+  background-color: hsl(270 20% 98%);
+  background-image: 
+    radial-gradient(ellipse at 20% 30%, rgba(139, 123, 163, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(212, 165, 185, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(245, 197, 81, 0.05) 0%, transparent 50%);
+}
+
+/* Card especial com borda gradiente */
+.card-galaxia {
+  position: relative;
+  background: white;
+  border-radius: 1rem;
+}
+
+.card-galaxia::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #8B7BA3 0%, #D4A5B9 50%, #F5C551 100%);
+  border-radius: 1.1rem;
+  z-index: -1;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.card-galaxia:hover::before {
+  opacity: 1;
+}
+
+/* Logo container */
+.logo-container {
+  position: relative;
+}
+
+.logo-container::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(135deg, rgba(245, 197, 81, 0.3) 0%, rgba(212, 165, 185, 0.3) 100%);
+  border-radius: 50%;
+  filter: blur(8px);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo-container:hover::after {
+  opacity: 1;
+}
+
+/* Botão com estilo Galáxia */
+.btn-galaxia {
+  background: linear-gradient(135deg, #8B7BA3 0%, #C4A5B9 50%, #D4A5B9 100%);
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-galaxia::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.btn-galaxia:hover::before {
+  animation: shimmer 1s ease;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(45deg); opacity: 1; }
+  100% { transform: translateX(100%) rotate(45deg); opacity: 0; }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(270 15% 94%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8B7BA3 0%, #D4A5B9 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #7B6B93 0%, #C495A9 100%);
+}
+
+/* Efeito de estrela/brilho */
+.star-sparkle {
+  position: relative;
+}
+
+.star-sparkle::after {
+  content: '✦';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-size: 12px;
+  color: #F5C551;
+  animation: sparkle 2s ease-in-out infinite;
 }

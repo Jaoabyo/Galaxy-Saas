@@ -13,9 +13,13 @@ export const metadata: Metadata = {
   keywords: "delivery, gestão, ifood, lucro, margem, MEI, restaurante",
   authors: [{ name: "jaoadev", url: "https://github.com/jaoadev" }],
   icons: {
-    icon: [
-      { url: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌌</text></svg>", type: "image/svg+xml" },
-    ],
+    icon: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
+  openGraph: {
+    title: "Galáxia Gourmet",
+    description: "Sistema de gestão inteligente para delivery",
+    images: ["/images/logo-full.png"],
   },
 };
 
@@ -26,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={sora.className}>{children}</body>
+      <body className={`${sora.className} bg-galaxia-pattern`}>{children}</body>
     </html>
   );
 }

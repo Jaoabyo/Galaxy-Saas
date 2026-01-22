@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -18,12 +19,19 @@ export function Navbar() {
     return (
         <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container flex h-16 items-center justify-between px-4">
-                <Link href="/dashboard" className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl gradient-primary text-white text-xl">
-                        🌌
+                <Link href="/dashboard" className="flex items-center gap-3 logo-container group">
+                    <div className="relative w-12 h-12 transition-transform group-hover:scale-105">
+                        <Image
+                            src="/images/logo.png"
+                            alt="Galáxia Gourmet"
+                            width={48}
+                            height={48}
+                            className="object-contain"
+                            priority
+                        />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                        <span className="text-lg font-bold text-gradient-galaxia">
                             Galáxia Gourmet
                         </span>
                         <span className="text-[10px] text-muted-foreground -mt-1">
@@ -40,7 +48,7 @@ export function Navbar() {
                             className={cn(
                                 "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
                                 pathname === item.href
-                                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                                    ? "gradient-lilac-rose text-white shadow-lg shadow-primary/25"
                                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                             )}
                         >

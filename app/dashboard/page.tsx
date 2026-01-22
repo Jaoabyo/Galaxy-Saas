@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { formatCurrency, formatPercent } from '@/lib/utils';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Summary {
     ordersCount: number;
@@ -70,33 +71,44 @@ export default function DashboardPage() {
     const periodLabel = period === 'today' ? 'Hoje' : period === '7d' ? 'Últimos 7 dias' : 'Últimos 30 dias';
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
+        <div className="min-h-screen">
             <Navbar />
             
             <main className="container mx-auto py-8 px-4 space-y-8 animate-fade-in">
-                {/* Header */}
+                {/* Header com Logo */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
-                        <h1 className="text-4xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
-                            Dashboard
-                        </h1>
-                        <p className="text-muted-foreground mt-1">
-                            Visão geral do seu negócio • {periodLabel}
-                        </p>
+                    <div className="flex items-center gap-4">
+                        <div className="relative w-16 h-16 animate-float">
+                            <Image
+                                src="/images/logo.png"
+                                alt="Galáxia Gourmet"
+                                width={64}
+                                height={64}
+                                className="object-contain"
+                            />
+                        </div>
+                        <div>
+                            <h1 className="text-4xl font-bold text-gradient-galaxia">
+                                Dashboard
+                            </h1>
+                            <p className="text-muted-foreground mt-1">
+                                Visão geral do seu negócio • {periodLabel}
+                            </p>
+                        </div>
                     </div>
                     
                     <div className="flex gap-2 p-1 bg-muted rounded-xl">
                         {[
-                            { value: 'today', label: 'Hoje' },
-                            { value: '7d', label: '7 dias' },
-                            { value: '30d', label: '30 dias' },
+                            { value: 'today', label: '☀️ Hoje' },
+                            { value: '7d', label: '📅 7 dias' },
+                            { value: '30d', label: '🗓️ 30 dias' },
                         ].map((btn) => (
                             <button
                                 key={btn.value}
                                 onClick={() => setPeriod(btn.value)}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                                     period === btn.value
-                                        ? 'bg-primary text-primary-foreground shadow-lg'
+                                        ? 'gradient-lilac-rose text-white shadow-lg'
                                         : 'text-muted-foreground hover:text-foreground'
                                 }`}
                             >
@@ -124,7 +136,8 @@ export default function DashboardPage() {
                     <>
                         {/* KPIs */}
                         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                            <Card className="group hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 animate-slide-up border-l-4 border-l-purple-500">
+                            <Card className="group hover:shadow-xl transition-all duration-300 animate-slide-up overflow-hidden relative">
+                                <div className="absolute top-0 left-0 w-full h-1 gradient-lilac-rose"></div>
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                     <CardTitle className="text-sm font-medium text-muted-foreground">
                                         Faturamento Bruto
@@ -132,7 +145,7 @@ export default function DashboardPage() {
                                     <span className="text-2xl">💰</span>
                                 </CardHeader>
                                 <CardContent>
-                                    <div className="text-3xl font-bold">
+                                    <div className="text-3xl font-bold text-gradient-galaxia">
                                         {formatCurrency(summary?.grossRevenue || 0)}
                                     </div>
                                     <p className="text-xs text-muted-foreground mt-1">
@@ -141,7 +154,8 @@ export default function DashboardPage() {
                                 </CardContent>
                             </Card>
 
-                            <Card className="group hover:shadow-xl hover:shadow-green-500/10 transition-all duration-300 animate-slide-up border-l-4 border-l-green-500" style={{ animationDelay: '0.1s' }}>
+                            <Card className="group hover:shadow-xl transition-all duration-300 animate-slide-up overflow-hidden relative" style={{ animationDelay: '0.1s' }}>
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 to-emerald-500"></div>
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                     <CardTitle className="text-sm font-medium text-muted-foreground">
                                         Lucro Líquido
@@ -158,7 +172,8 @@ export default function DashboardPage() {
                                 </CardContent>
                             </Card>
 
-                            <Card className="group hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 animate-slide-up border-l-4 border-l-blue-500" style={{ animationDelay: '0.2s' }}>
+                            <Card className="group hover:shadow-xl transition-all duration-300 animate-slide-up overflow-hidden relative" style={{ animationDelay: '0.2s' }}>
+                                <div className="absolute top-0 left-0 w-full h-1 gradient-sun-moon"></div>
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                     <CardTitle className="text-sm font-medium text-muted-foreground">
                                         Margem Média
@@ -175,7 +190,8 @@ export default function DashboardPage() {
                                 </CardContent>
                             </Card>
 
-                            <Card className="group hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300 animate-slide-up border-l-4 border-l-red-400" style={{ animationDelay: '0.3s' }}>
+                            <Card className="group hover:shadow-xl transition-all duration-300 animate-slide-up overflow-hidden relative" style={{ animationDelay: '0.3s' }}>
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-400 to-rose-500"></div>
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                     <CardTitle className="text-sm font-medium text-muted-foreground">
                                         Taxas Pagas
@@ -196,9 +212,10 @@ export default function DashboardPage() {
                         {/* Ações Rápidas */}
                         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                             <Link href="/orders/new" className="block">
-                                <Card className="h-full cursor-pointer hover:shadow-xl hover:shadow-primary/20 hover:border-primary/50 transition-all duration-300 group">
+                                <Card className="h-full cursor-pointer hover:shadow-xl transition-all duration-300 group overflow-hidden relative">
+                                    <div className="absolute inset-0 gradient-lilac-rose opacity-0 group-hover:opacity-5 transition-opacity"></div>
                                     <CardContent className="flex items-center gap-4 p-6">
-                                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl gradient-primary text-white text-2xl group-hover:scale-110 transition-transform">
+                                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl gradient-lilac-rose text-white text-2xl group-hover:scale-110 transition-transform animate-glow">
                                             ➕
                                         </div>
                                         <div>
@@ -212,9 +229,10 @@ export default function DashboardPage() {
                             </Link>
 
                             <Link href="/products" className="block">
-                                <Card className="h-full cursor-pointer hover:shadow-xl hover:shadow-orange-500/20 hover:border-orange-500/50 transition-all duration-300 group">
+                                <Card className="h-full cursor-pointer hover:shadow-xl transition-all duration-300 group overflow-hidden relative">
+                                    <div className="absolute inset-0 gradient-sun-moon opacity-0 group-hover:opacity-5 transition-opacity"></div>
                                     <CardContent className="flex items-center gap-4 p-6">
-                                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl gradient-warning text-white text-2xl group-hover:scale-110 transition-transform">
+                                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl gradient-sun-moon text-white text-2xl group-hover:scale-110 transition-transform">
                                             🍟
                                         </div>
                                         <div>
@@ -228,7 +246,8 @@ export default function DashboardPage() {
                             </Link>
 
                             <Link href="/orders" className="block">
-                                <Card className="h-full cursor-pointer hover:shadow-xl hover:shadow-green-500/20 hover:border-green-500/50 transition-all duration-300 group">
+                                <Card className="h-full cursor-pointer hover:shadow-xl transition-all duration-300 group overflow-hidden relative">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-500 opacity-0 group-hover:opacity-5 transition-opacity"></div>
                                     <CardContent className="flex items-center gap-4 p-6">
                                         <div className="flex h-14 w-14 items-center justify-center rounded-2xl gradient-success text-white text-2xl group-hover:scale-110 transition-transform">
                                             📦
@@ -246,10 +265,19 @@ export default function DashboardPage() {
 
                         {/* Empty State */}
                         {(summary?.ordersCount || 0) === 0 && (
-                            <Card className="border-dashed border-2">
-                                <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-                                    <div className="text-6xl mb-4">🚀</div>
-                                    <h3 className="text-xl font-bold mb-2">
+                            <Card className="border-dashed border-2 overflow-hidden relative">
+                                <div className="absolute inset-0 bg-galaxia-pattern opacity-50"></div>
+                                <CardContent className="flex flex-col items-center justify-center py-16 text-center relative">
+                                    <div className="relative w-24 h-24 mb-4 animate-float">
+                                        <Image
+                                            src="/images/logo.png"
+                                            alt="Galáxia Gourmet"
+                                            width={96}
+                                            height={96}
+                                            className="object-contain"
+                                        />
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-2 text-gradient-galaxia">
                                         Comece a usar o Galáxia Gourmet!
                                     </h3>
                                     <p className="text-muted-foreground max-w-md mb-6">
@@ -257,12 +285,12 @@ export default function DashboardPage() {
                                     </p>
                                     <div className="flex gap-4">
                                         <Link href="/products">
-                                            <Button variant="outline">
+                                            <Button variant="outline" className="hover:gradient-sun-moon hover:text-white hover:border-transparent transition-all">
                                                 🍟 Cadastrar Produtos
                                             </Button>
                                         </Link>
                                         <Link href="/settings/platforms">
-                                            <Button>
+                                            <Button className="gradient-lilac-rose border-0">
                                                 ⚙️ Configurar Plataformas
                                             </Button>
                                         </Link>
@@ -275,6 +303,16 @@ export default function DashboardPage() {
 
                 {/* Footer */}
                 <footer className="text-center py-8 border-t">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                        <Image
+                            src="/images/logo.png"
+                            alt="Galáxia Gourmet"
+                            width={24}
+                            height={24}
+                            className="object-contain"
+                        />
+                        <span className="font-bold text-gradient-galaxia">Galáxia Gourmet</span>
+                    </div>
                     <p className="text-sm text-muted-foreground">
                         Desenvolvido com 💜 por{' '}
                         <a 
@@ -287,7 +325,7 @@ export default function DashboardPage() {
                         </a>
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
-                        Galáxia Gourmet © {new Date().getFullYear()} - Gestão Inteligente para Delivery
+                        © {new Date().getFullYear()} - Gestão Inteligente para Delivery
                     </p>
                 </footer>
             </main>
