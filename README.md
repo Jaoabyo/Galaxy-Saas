@@ -172,3 +172,4 @@ Para dúvidas ou suporte, entre em contato através do repositório.
 
 **Desenvolvido com ❤️ para pequenos restaurantes e MEIs**
 
+
