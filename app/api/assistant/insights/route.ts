@@ -3,6 +3,8 @@ import { getTenantId } from "@/lib/auth-context";
 import { NextResponse } from "next/server";
 import { analyzeProducts, getProductRecommendation } from "@/lib/calculations";
 
+export const dynamic = 'force-dynamic';
+
 /**
  * API do Assistente Inteligente
  * Retorna insights sobre produtos com prejuízo ou margem baixa

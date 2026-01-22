@@ -3,6 +3,8 @@ import { getTenantId } from "@/lib/auth-context";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
+export const dynamic = 'force-dynamic';
+
 const productSchema = z.object({
     name: z.string().min(1),
     salePrice: z.number().min(0),

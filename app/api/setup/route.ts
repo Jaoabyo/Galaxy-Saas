@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 /**
  * API de Setup Inicial
  * Cria o tenant padrão, plataformas e produtos de exemplo

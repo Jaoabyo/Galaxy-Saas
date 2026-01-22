@@ -2,6 +2,8 @@ import prisma from "@/lib/prisma";
 import { getTenantId } from "@/lib/auth-context";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
     try {
         const tenantId = await getTenantId();

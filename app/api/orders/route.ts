@@ -5,6 +5,8 @@ import { z } from "zod";
 import { calculatePlatformFee, calculateNetProfit, calculateMargin } from "@/lib/calculations";
 import { sendTelegramMessage } from "@/lib/telegram";
 
+export const dynamic = 'force-dynamic';
+
 const orderItemSchema = z.object({
     productId: z.string(),
     quantity: z.number().min(1),
